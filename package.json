@@ -1,0 +1,11 @@
+{
+  "name": "orange-reply-assistant-portfolio",
+  "version": "1.0.0",
+  "description": "Public, synthetic-data demonstration of the quotation rules from an operational booking-workflow case study.",
+  "private": true,
+  "scripts": {
+    "test": "node tests/run-tests.js",
+    "demo": "node src/demo.js"
+  },
+  "license": "UNLICENSED"
+}

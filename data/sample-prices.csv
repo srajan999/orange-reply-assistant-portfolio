@@ -1,0 +1,19 @@
+type,name,price
+test,Sodium,100
+test,Potassium,100
+test,Chloride,100
+test,Calcium,120
+test,Uric Acid,150
+test,Urea,130
+test,Creatinine,140
+test,ALT,160
+test,AST,160
+test,GGT,170
+test,Total Bilirubin,140
+test,Albumin,110
+test,Complete Blood Count,250
+test,Complete Blood Count with ESR,300
+test,Vitamin D,900
+test,Thyroid Profile,800
+panel,Kidney Function Panel,800
+panel,Liver Function Panel,900

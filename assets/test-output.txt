@@ -1,0 +1,17 @@
+PASS  T1 two parts roll up into the bigger test at its price
+PASS  T2 a single part is not rolled up
+PASS  T3 bigger test already requested: parts are dropped, bigger test kept
+PASS  T4 bigger test has no price: parts are kept
+PASS  T5 CBC is covered by CBC with ESR
+PASS  T6 optimiser picks the cheaper package and adds the uncovered test
+PASS  T7 basket at or below threshold is not optimised
+PASS  T8 no option cheaper than individual tests: individual quote kept
+PASS  T9 unknown price is reported as unavailable, never guessed
+PASS  T10 end to end: rolled-up panel is quoted and packages are compared
+PASS  T11 AI guard accepts a draft whose prices all come from the quote
+PASS  T12 AI guard rejects a draft with a price the engine did not produce
+PASS  T13 chat request needs a key and never contains one in the source
+PASS  T14 prompt carries only the engine prices and tells the model not to invent any
+PASS  T15 phone numbers and emails are redacted before the transcript is sent
+
+15 passed, 0 failed
