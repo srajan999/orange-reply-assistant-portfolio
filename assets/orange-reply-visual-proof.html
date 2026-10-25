@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orange Reply Assistant Evidence</title>
+<style>
+/* Layout: one column of evidence blocks, each a claim, a visual and its source. */
+:root {
+  --bg: #f7f6f2;
+  --fg: #1d1f24;
+  --muted: #5d636e;
+  --rule: #d9d6cc;
+  --card: #ffffff;
+  --accent: #1f6f5c;
+  --accent-soft: #bfdcd3;
+  --warn: #8a5a12;
+  --track: #ebe9e2;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171b; --fg: #eceae4; --muted: #a2a8b2; --rule: #2f333b;
+    --card: #1d2026; --accent: #6cc3ac; --accent-soft: #2b5d50; --warn: #e0b06a; --track: #2a2e36;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15171b; --fg: #eceae4; --muted: #a2a8b2; --rule: #2f333b;
+  --card: #1d2026; --accent: #6cc3ac; --accent-soft: #2b5d50; --warn: #e0b06a; --track: #2a2e36;
+  color-scheme: dark;
+}
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 48px;
+}
+main { max-width: 760px; margin: 0 auto; display: grid; gap: 18px; }
+header h1 { font-size: 26px; line-height: 1.2; margin: 0 0 6px; text-wrap: balance; }
+header p { color: var(--muted); margin: 0; max-width: 60ch; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 18px 16px; }
+.card h2 { font-size: 17px; margin: 0 0 4px; text-wrap: balance; }
+.card .claim { color: var(--muted); margin: 0 0 14px; font-size: 14px; }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 6px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; margin: 8px 0; }
+.row .name { font-size: 14px; min-width: 0; overflow-wrap: anywhere; }
+.bar-track { background: var(--track); border-radius: 4px; height: 22px; position: relative; overflow: hidden; grid-column: 1 / -1; }
+.bar { height: 100%; border-radius: 4px 0 0 4px; background: var(--accent); min-width: 2px; }
+.bar.muted { background: var(--accent-soft); }
+.bar.warn { background: var(--warn); }
+.val { font-variant-numeric: tabular-nums; font-size: 14px; white-space: nowrap; }
+.src { margin-top: 12px; font-size: 12px; color: var(--muted); }
+.note { margin-top: 10px; font-size: 13px; color: var(--muted); }
+.tests { display: grid; gap: 6px; }
+.test { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: baseline; font-size: 14px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); transform: translateY(1px); }
+.test code { font-size: 12px; color: var(--muted); }
+.big { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 4px; }
+.stat { flex: 1 1 160px; background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; min-width: 0; }
+.stat .n { font-size: 30px; font-weight: 650; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat .t { font-size: 13px; color: var(--muted); }
+.stack { display: flex; height: 26px; border-radius: 4px; overflow: hidden; gap: 2px; margin: 6px 0 4px; }
+.stack > div { height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.flow .step { border: 1px solid var(--rule); border-radius: 6px; padding: 6px 10px; font-size: 13px; background: var(--bg); }
+.flow .arr { color: var(--muted); }
+.flow .step.auto { border-color: var(--accent); }
+footer { color: var(--muted); font-size: 12px; text-align: center; padding-top: 6px; }
+@media (prefers-reduced-motion: no-preference) {
+  .bar { transition: width .6s ease-out; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Orange Reply Assistant: visual evidence</h1>
+  <p>Every number on this page comes from a test run, a data count or a figure you recorded. Hover a bar to see its exact value.</p>
+</header>
+
+<section class="card">
+  <div class="label">1. Rule tests</div>
+  <h2>10 of 10 scenario tests pass</h2>
+  <p class="claim">Tests run against the quotation rules on synthetic data (npm test in the portfolio repo).</p>
+  <div class="big">
+    <div class="stat"><div class="n">10</div><div class="t">tests run</div></div>
+    <div class="stat"><div class="n">10</div><div class="t">passed</div></div>
+    <div class="stat"><div class="n">0</div><div class="t">failed</div></div>
+  </div>
+  <div class="tests" style="margin-top:14px">
+    <div class="test"><span class="dot"></span><span>Two parts roll up into the bigger test</span><code>T1</code></div>
+    <div class="test"><span class="dot"></span><span>A single part is not rolled up</span><code>T2</code></div>
+    <div class="test"><span class="dot"></span><span>Bigger test already requested: parts dropped</span><code>T3</code></div>
+    <div class="test"><span class="dot"></span><span>Bigger test has no price: parts kept</span><code>T4</code></div>
+    <div class="test"><span class="dot"></span><span>CBC covered by CBC with ESR</span><code>T5</code></div>
+    <div class="test"><span class="dot"></span><span>Cheaper package chosen, uncovered test added</span><code>T6</code></div>
+    <div class="test"><span class="dot"></span><span>Basket below threshold not optimised</span><code>T7</code></div>
+    <div class="test"><span class="dot"></span><span>No cheaper option: individual quote kept</span><code>T8</code></div>
+    <div class="test"><span class="dot"></span><span>Unknown price reported, never guessed</span><code>T9</code></div>
+    <div class="test"><span class="dot"></span><span>End to end: panel quoted, packages compared</span><code>T10</code></div>
+  </div>
+  <div class="src">Source: tests/run-tests.js, output saved in assets/test-output.txt</div>
+</section>
+
+<section class="card">
+  <div class="label">2. Package option</div>
+  <h2>A cheaper package saved Rs 250 on one basket</h2>
+  <p class="claim">Basket: CBC, Vitamin D and Thyroid Profile. The package option is Essential Checkup plus Thyroid Profile.</p>
+  <div class="row"><span class="name">Tests bought one by one</span><span class="val">Rs 1,950</span>
+    <div class="bar-track"><div class="bar muted" style="width:100%" title="Individual tests: Rs 1,950"></div></div></div>
+  <div class="row"><span class="name">Package option</span><span class="val">Rs 1,700</span>
+    <div class="bar-track"><div class="bar" style="width:87.2%" title="Package option: Rs 1,700 (saves Rs 250)"></div></div></div>
+  <p class="note">Saving: Rs 250 (13%) on this basket. Only one basket is tested, so this is not an average.</p>
+  <div class="src">Source: src/demo.js and T6 in tests/run-tests.js (synthetic prices)</div>
+</section>
+
+<section class="card">
+  <div class="label">3. Roll-up effect</div>
+  <h2>Grouping small tests into a panel can raise the price</h2>
+  <p class="claim">Two kidney parts (sodium and potassium) are quoted as the Kidney Function Panel. This is the rule as built, at any price, and the business has not yet decided on it.</p>
+  <div class="row"><span class="name">Two parts quoted separately</span><span class="val">Rs 200</span>
+    <div class="bar-track"><div class="bar muted" style="width:25%" title="Sodium Rs 100 + Potassium Rs 100 = Rs 200"></div></div></div>
+  <div class="row"><span class="name">Rolled up into the panel</span><span class="val">Rs 800</span>
+    <div class="bar-track"><div class="bar warn" style="width:100%" title="Kidney Function Panel Rs 800"></div></div></div>
+  <p class="note">A rise of Rs 600 on this basket. Ask for a decision before this rule goes live on small baskets.</p>
+  <div class="src">Source: T1 and the demo in docs/business-rules.md (synthetic prices)</div>
+</section>
+
+<section class="card">
+  <div class="label">4. Data validation</div>
+  <h2>11 of 38 packages had no CBC-type test</h2>
+  <p class="claim">The quotation logic assumed every package contained CBC. The check found otherwise. CBC-type means CBC, CBC with ESR, or Complete Haemogram (CBP).</p>
+  <div class="stack" role="img" aria-label="27 packages with a CBC-type test, 11 without">
+    <div style="flex:27; background:var(--accent)" title="27 packages with a CBC-type test"></div>
+    <div style="flex:11; background:var(--warn)" title="11 packages without a CBC-type test"></div>
+  </div>
+  <div class="legend"><span style="--c:var(--accent)">27 with a CBC-type test</span><span style="--c:var(--warn)">11 without</span></div>
+  <p class="note">Count from the internal package list (38 packages). The package names are not shared here.</p>
+  <div class="src">Source: package map count, recounted for this page. The earlier figure of 17 was wrong and is withdrawn.</div>
+</section>
+
+<section class="card">
+  <div class="label">5. Handling time</div>
+  <h2>Booking chats: about 20 minutes down to about 10</h2>
+  <p class="claim">The 20-minute figure was an informal estimate, not a measured baseline. The 10 minutes covers about 100 chats after the change, handled by several agents.</p>
+  <div class="row"><span class="name">Earlier, informal estimate</span><span class="val">~20 min</span>
+    <div class="bar-track"><div class="bar muted" style="width:100%" title="Informal estimate: about 20 minutes"></div></div></div>
+  <div class="row"><span class="name">After the change (about 100 chats)</span><span class="val">~10 min</span>
+    <div class="bar-track"><div class="bar" style="width:50%" title="Observed: about 10 minutes across about 100 chats"></div></div></div>
+  <p class="note">An observed change, not a controlled comparison. The two periods are not matched for chat mix or agents.</p>
+  <div class="src">Source: your own figures, recorded in the write-up and impact notes</div>
+</section>
+
+<section class="card">
+  <div class="label">6. Workflow</div>
+  <h2>Booking steps the assistant follows</h2>
+  <p class="claim">Stages from enquiry to booking. Highlighted steps are the ones the assistant handles automatically.</p>
+  <div class="flow">
+    <span class="step">Enquiry</span><span class="arr">→</span>
+    <span class="step auto">Pincode and city</span><span class="arr">→</span>
+    <span class="step">Serviceable?</span><span class="arr">→</span>
+    <span class="step auto">Tests and parts</span><span class="arr">→</span>
+    <span class="step auto">Quote and package check</span><span class="arr">→</span>
+    <span class="step">Agent shares quote</span><span class="arr">→</span>
+    <span class="step">Booking confirmed</span>
+  </div>
+  <div class="src">Source: docs/process-flow.md</div>
+</section>
+
+<footer>Synthetic data for the rule tests. Counts and timings are from the author's own records.</footer>
+
+</main>
+</body>
+</html>
